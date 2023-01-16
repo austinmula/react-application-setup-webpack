@@ -1,4 +1,5 @@
 import React from "react";
+import ActionsContainer from "./ActionsContainer";
 import QuoteCard from "./QuoteCard";
 
 class QuoteContainer extends React.Component {
@@ -19,12 +20,15 @@ class QuoteContainer extends React.Component {
       });
   }
 
+  componentDidUpdate() {
+    console.log("Component state updated");
+  }
+
   submit() {
     alert("Hi there alert Here");
   }
 
   getnext() {
-    console.log("next");
     if (this.state.count !== this.state.quotes.length - 1)
       this.setState((prevState) => {
         return { count: prevState.count + 1 };
@@ -54,11 +58,12 @@ class QuoteContainer extends React.Component {
           />
         )}
 
-        <div className="actions-container">
-          <p>{this.state.count}</p>
-          <button onClick={this.getprev}>Previous</button>
-          <button onClick={this.getnext}>Next</button>
-        </div>
+        <ActionsContainer
+          count={this.state.count}
+          quotes={this.state.quotes}
+          getnext={this.getnext}
+          getprev={this.getprev}
+        />
       </div>
     );
   }
